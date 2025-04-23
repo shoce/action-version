@@ -1,0 +1,17 @@
+---
+name: "VERSION"
+description: "set VERSION env var"
+author: "shoce"
+inputs: {}
+outputs: {}
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        echo "date [$(TZ='Asia/Bangkok' date '+%y.%m%d.%H%M')]"
+        VERSION=$( TZ='Asia/Bangkok' date '+%y.%m%d.%H%M' | sed 's/\.0*/./g' )
+        echo "VERSION [$VERSION]"
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+
