@@ -9,8 +9,12 @@ runs:
   steps:
     - shell: bash
       run: |
-        echo "date [$(TZ='Asia/Bangkok' date '+%y.%m%d.%H%M')]"
-        VERSION=$( TZ='Asia/Bangkok' date '+%y.%m%d.%H%M' | sed 's/\.0*/./g' )
+        TZ='Asia/Bangkok'
+        export TZ
+        DATE=$(date '+%y.%m%d.%H%M%S')
+        echo "TZ [$TZ]"
+        echo "DATE [$DATE]"
+        VERSION=$( echo "$DATE" | sed -e 's/^[0]*//g' -e 's/[.][0]*/./g' )
         echo "VERSION [$VERSION]"
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
